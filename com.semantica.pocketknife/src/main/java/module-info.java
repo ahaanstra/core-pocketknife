@@ -1,4 +1,11 @@
 module com.semantica.pocketknife {
+    exports com.semantica.pocketknife;
+    exports com.semantica.pocketknife.calls;
+    exports com.semantica.pocketknife.methodrecorder;
+    exports com.semantica.pocketknife.mock;
+    exports com.semantica.pocketknife.pojo;
+    exports com.semantica.pocketknife.util;
+
     requires javax.inject;
     requires slf4j.api;
     requires org.apache.commons.lang3;
@@ -13,5 +20,6 @@ module com.semantica.pocketknife {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.yaml;
 
-
+    opens com.semantica.pocketknife.methodrecorder.dynamicproxies to net.bytebuddy;
+    opens com.semantica.pocketknife to com.fasterxml.jackson.databind;
 }

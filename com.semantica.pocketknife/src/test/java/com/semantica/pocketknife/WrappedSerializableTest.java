@@ -50,7 +50,7 @@ public class WrappedSerializableTest {
 	}
 
 	@Test
-	public void shouldThrowException() throws JsonProcessingException {
+	public void shouldThrowExceptionWhenTryingToSerializeBeanWithoutProperties() throws JsonProcessingException {
 		WrappedSerializable<Serializable> test = new WrappedSerializable<>(new Serializable() {
 			private static final long serialVersionUID = 1L;
 		}, SerializationType.YAML);
