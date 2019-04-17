@@ -7,7 +7,7 @@ module com.semantica.pocketknife {
     exports com.semantica.pocketknife.util;
 
     requires javax.inject;
-    requires slf4j.api;
+    requires org.slf4j;
     requires org.apache.commons.lang3;
 
     requires net.bytebuddy;

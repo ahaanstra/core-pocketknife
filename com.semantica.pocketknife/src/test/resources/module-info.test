@@ -16,8 +16,8 @@ com.semantica.pocketknife/com.semantica.pocketknife.mock=org.junit.platform.comm
 com.semantica.pocketknife/com.semantica.pocketknife.mock.it=org.junit.platform.commons
 --add-exports
 com.semantica.pocketknife/com.semantica.pocketknife.pojo=org.junit.platform.commons
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife.pojo.example=org.junit.platform.commons
+//--add-exports
+//com.semantica.pocketknife/com.semantica.pocketknife.pojo.example=org.junit.platform.commons
 --add-exports
 com.semantica.pocketknife/com.semantica.pocketknife.util=org.junit.platform.commons
 
