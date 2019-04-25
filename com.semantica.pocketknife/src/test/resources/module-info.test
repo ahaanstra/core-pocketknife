@@ -4,23 +4,24 @@
 --add-reads
 com.semantica.pocketknife=org.apache.logging.log4j
 
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife=org.junit.platform.commons
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife.calls=org.junit.platform.commons
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife.methodrecorder=org.junit.platform.commons
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife.mock=org.junit.platform.commons
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife.mock.it=org.junit.platform.commons
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife.pojo=org.junit.platform.commons
---add-exports
-com.semantica.pocketknife/com.semantica.pocketknife.util=org.junit.platform.commons
-
 --add-reads
 com.semantica.pocketknife=jdk.unsupported
+
+// Allow deep reflection for test discovery
+--add-opens
+com.semantica.pocketknife/com.semantica.pocketknife=org.junit.platform.commons
+--add-opens
+com.semantica.pocketknife/com.semantica.pocketknife.calls=org.junit.platform.commons
+--add-opens
+com.semantica.pocketknife/com.semantica.pocketknife.methodrecorder=org.junit.platform.commons
+--add-opens
+com.semantica.pocketknife/com.semantica.pocketknife.mock=org.junit.platform.commons
+--add-opens
+com.semantica.pocketknife/com.semantica.pocketknife.mock.it=org.junit.platform.commons
+--add-opens
+com.semantica.pocketknife/com.semantica.pocketknife.pojo=org.junit.platform.commons
+--add-opens
+com.semantica.pocketknife/com.semantica.pocketknife.util=org.junit.platform.commons
 
 --add-opens
 com.semantica.pocketknife/com.semantica.pocketknife.calls=org.apache.commons.lang3
