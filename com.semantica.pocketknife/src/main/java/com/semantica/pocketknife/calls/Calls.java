@@ -74,9 +74,7 @@ public interface Calls<T> {
 	 * method call explicitely. Works for instances initialized to both
 	 * {@code String.class} and {@code java.lang.reflect.Method.class} as keyClass.
 	 *
-	 * @param method The identifier for the method.
-	 * @param args   The arguments that have been used in the call to the method
-	 *               being registered.
+	 * @param methodCall The {@link MethodCall} identifier for the method call.
 	 */
 	public void registerCall(MethodCall<T> methodCall);
 

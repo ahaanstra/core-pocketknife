@@ -25,6 +25,9 @@
 # Maven 
 target/
 
+# Javadoc
+docs/
+
 # IntelliJ project files 
 *.iml
 *.iws

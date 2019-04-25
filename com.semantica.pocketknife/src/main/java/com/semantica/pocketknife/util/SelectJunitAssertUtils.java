@@ -116,7 +116,6 @@ public class SelectJunitAssertUtils {
 	 * @param obj the object to convert to a String; may be {@code null}
 	 * @return a String representation of the supplied object; never {@code null}
 	 * @see Arrays#deepToString(Object[])
-	 * @see ClassUtils#nullSafeToString(Class...)
 	 */
 	public static String nullSafeToString(Object obj) {
 		if (obj == null) {
@@ -179,7 +178,6 @@ public class SelectJunitAssertUtils {
 	 * @return the default String representation of the supplied object; never
 	 *         {@code null}
 	 * @see #nullSafeToString(Object)
-	 * @see ClassUtils#nullSafeToString(Class...)
 	 */
 	public static String defaultToString(Object obj) {
 		if (obj == null) {

@@ -33,7 +33,7 @@ public class MocksRegistry {
 	}
 
 	/**
-	 * Creates a new {@link MocksRegistryTest} with the given mocks.
+	 * Creates a new {@link MocksRegistry} with the given mocks.
 	 *
 	 * @param mocks Set of mocks that need to be registered.
 	 */
@@ -104,7 +104,6 @@ public class MocksRegistry {
 	 * is due to the behaviour of HashSet.
 	 *
 	 * @param mock The mock that is deregistered.
-	 * @return
 	 */
 	public void deregisterMock(Mock mock) {
 		for (Provider<? extends Mock> mockProvider : mockProviders) {

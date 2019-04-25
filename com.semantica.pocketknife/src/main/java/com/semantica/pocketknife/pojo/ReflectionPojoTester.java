@@ -36,7 +36,7 @@ public class ReflectionPojoTester {
 	private static final List<String> IGNORED_FIELD_NAMES = Arrays.asList("serialVersionUID");
 
 	/**
-	 * Starts an automated unit test on a {@;ink List} of POJO classes to see that
+	 * Starts an automated unit test on a {@link List} of POJO classes to see that
 	 * all getters and setters for a POJO are set correctly. Also tests the
 	 * toString(), equals(..) and hashCode() methods.
 	 *

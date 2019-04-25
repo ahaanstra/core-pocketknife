@@ -106,15 +106,4 @@ public class MocksRegistryTest {
         Mockito.verifyNoMoreInteractions(callsMock1, callsMock2, verifiedmockMock1, verifiedmockMock2);
     }
 
-    /**
-     * !Very important!
-     * Always enable JVM assertions (VM argument '-ea'), if not, the simple test below will fail.
-     */
-    @Test
-    public void failIfAssertionsNotEnabled() {
-        boolean pass = false;
-        assert (pass = true);
-        Assertions.assertTrue(pass);
-    }
-
 }

@@ -68,7 +68,6 @@ public class RandomIdentifierValues {
 	 *
 	 * @param clazz
 	 * @return
-	 * @throws IllegalAccessException
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T identifierValue(Class<T> clazz) {

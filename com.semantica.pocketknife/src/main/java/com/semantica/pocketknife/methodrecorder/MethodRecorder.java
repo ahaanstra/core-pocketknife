@@ -70,7 +70,6 @@ public class MethodRecorder<T> {
 	 * the {@code recordedClass} on its proxy instance.
 	 *
 	 * @param recordedClass
-	 * @throws IllegalAccessException
 	 */
 	@SuppressWarnings("unchecked")
 	public MethodRecorder(Class<T> recordedClass) {
@@ -101,7 +100,6 @@ public class MethodRecorder<T> {
 	 *
 	 * @param recordedClass
 	 * @return
-	 * @throws IllegalAccessException
 	 */
 	public static <T> MethodRecorder<T> recordInvocationsOn(Class<T> recordedClass) {
 		return new MethodRecorder<>(recordedClass);
@@ -138,7 +136,7 @@ public class MethodRecorder<T> {
 		 * @param zuper  Can be used for any callbacks to the original method on an
 		 *               instance of the proxy's superclass
 		 * @return Return value for the intercepted method
-		 * @throws Throwable
+		 * @throws Exception
 		 */
 		@RuntimeType
 		public Object intercept(@Origin Method method, @This Object self, @AllArguments Object[] args,
@@ -238,7 +236,7 @@ public class MethodRecorder<T> {
 	 * Returns a method name instead of a {@link MethodCall}, otherwise the same as
 	 * {@link #getMethodCall(ThrowingRunnable)}.
 	 *
-	 * @param callableMethodInvoker The callable that calls the method to be
+	 * @param runnableMethodInvoker The runnable that calls the method to be
 	 *                              recorded
 	 * @return The method name of the called method
 	 */
@@ -382,7 +380,7 @@ public class MethodRecorder<T> {
 	 * Returns a {@link java.lang.reflect.Method} instead of a {@link MethodCall},
 	 * otherwise the same as {@link #getMethodCall(ThrowingRunnable)}.
 	 *
-	 * @param callableMethodInvoker The callable that calls the method to be
+	 * @param runnableMethodInvoker The callable that calls the method to be
 	 *                              recorded
 	 * @return A {@link java.lang.reflect.Method} that identifies the called method
 	 */
@@ -564,7 +562,7 @@ public class MethodRecorder<T> {
 	 * <code>
 	 * assert myMock.getCalls().verifyAndRemoveCall(
 	 *    Invoked.ONCE, myMockRecorder.getMethodCall(
-	 *       ()->myMockRecorder.getProxy().someVoidMethod()));
+	 *       (){@code ->}myMockRecorder.getProxy().someVoidMethod()));
 	 * </code>
 	 * </pre>
 	 *
@@ -712,7 +710,7 @@ public class MethodRecorder<T> {
 	 *
 	 * <pre>
 	 * <code>
-	 * MethodRecorder myMethodRecorder = new MethodRecorder<>(MyMethods.class);
+	 * MethodRecorder myMethodRecorder = new {@code MethodRecorder<>(MyMethods.class)};
 	 * {@code Matcher<Integer>} myMatcher = Matchers.any(int.class); // ! Hamcrest matchers do not implement equals(Object obj)
 	 * int randomIntermediateIdentifier = 0;
 	 * assert myMethodRecorder
@@ -730,7 +728,6 @@ public class MethodRecorder<T> {
 	 *                  retrieved at runtime from the Matcher).
 	 * @return An identifying value of the same type as the {@code predicate} is
 	 *         parameterized over.
-	 * @throws IllegalAccessException
 	 */
 	public <S> S storeAndCreateIdInstanceOfTypeArgument(Predicate<S> predicate, Class<S> clazz) {
 		return storeMatcherAndCreateIdInstanceOfTypeArgumentAsKeyToMatcher(predicate, clazz, Optional.empty());
@@ -746,7 +743,7 @@ public class MethodRecorder<T> {
 	 *
 	 * <pre>
 	 * <code>
-	 * MethodRecorder myMethodRecorder = new MethodRecorder<>(MyMethods.class);
+	 * MethodRecorder myMethodRecorder = new {@code MethodRecorder<>(MyMethods.class)};
 	 * {@code Matcher<Integer>} myMatcher = Matchers.any(int.class); // ! Hamcrest matchers do not implement equals(Object obj)
 	 * int randomIntermediateIdentifier = 0;
 	 * assert myMethodRecorder
@@ -764,7 +761,6 @@ public class MethodRecorder<T> {
 	 *                retrieved at runtime from the Matcher).
 	 * @return An identifying value of the same type as the {@code matcher} is
 	 *         parameterized over.
-	 * @throws IllegalAccessException
 	 */
 	public <S> S storeAndCreateIdInstanceOfTypeArgument(Matcher<S> matcher, Class<S> clazz) {
 		return storeMatcherAndCreateIdInstanceOfTypeArgumentAsKeyToMatcher(matcher, clazz, Optional.empty());
@@ -790,7 +786,6 @@ public class MethodRecorder<T> {
 	 *                       call counted from left to right and starting at 0.
 	 * @return An identifying value of the same type as the {@code predicate} is
 	 *         parameterized over.
-	 * @throws IllegalAccessException
 	 */
 	public <S> S storeAndCreateIdInstanceOfTypeArgument(Predicate<S> predicate, Class<S> clazz, int argumentNumber) {
 		return storeMatcherAndCreateIdInstanceOfTypeArgumentAsKeyToMatcher(predicate, clazz,
@@ -817,7 +812,6 @@ public class MethodRecorder<T> {
 	 *                       call counted from left to right and starting at 0.
 	 * @return An identifying value of the same type as the {@code matcher} is
 	 *         parameterized over.
-	 * @throws IllegalAccessException
 	 */
 	public <S> S storeAndCreateIdInstanceOfTypeArgument(Matcher<S> matcher, Class<S> clazz, int argumentNumber) {
 		return storeMatcherAndCreateIdInstanceOfTypeArgumentAsKeyToMatcher(matcher, clazz, Optional.of(argumentNumber));

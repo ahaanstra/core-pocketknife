@@ -16,8 +16,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <com.fasterxml.jackson.artifacts.version>2.9.8</com.fasterxml.jackson.artifacts.version>
         <junit.jupiter.version>5.5.0-M1</junit.jupiter.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>12</maven.compiler.source>
+        <maven.compiler.target>12</maven.compiler.target>
         <maven.min-version>3.3.9</maven.min-version>
     </properties>
 
@@ -116,13 +116,34 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- Execute with maven goal: versions:display-plugin-updates versions:display-dependency-updates -->
+                <!-- Execute with maven goals: versions:display-plugin-updates versions:display-dependency-updates -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.7</version>
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
+            </plugin>
+            <plugin>
+                <!-- Uses javadoc from $JAVA_HOME -->
+                <!-- execute with maven goals: clean package javadoc:jar -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <reportOutputDirectory>${basedir}</reportOutputDirectory>
+                    <destDir>docs</destDir>
+                    <verbose>true</verbose>
+                    <failOnError>false</failOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
@@ -149,6 +170,7 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <!-- execute with maven goals: enforcer:enforce -->
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>3.0.0-M2</version>
                     <executions>
