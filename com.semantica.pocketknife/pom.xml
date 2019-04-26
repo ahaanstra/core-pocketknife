@@ -206,8 +206,34 @@
                         <!-- Needed by the ReflectionPojoTester which uses Parameter.getName() -->
                         <parameters>true</parameters>
                         <testCompilerArgument>-parameters</testCompilerArgument>
+                        <!-- For this library to be compatible with Java 1.8 -->
+                        <!-- JAVA_HOME needs to point to jdk>12, otherwise a jdkToolchain configuration is necessary here or maven-toolchains-plugin must be used -->
+                        <release>8</release>
                     </configuration>
+                    <!-- Two-phase compile for compatibility with Java 1.8 -->
+                    <executions>
+                        <execution>
+                            <id>default-compile</id>
+                            <configuration>
+                                <!-- compile everything to ensure module-info contains right entries -->
+                                <release>12</release>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>base-compile</id>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                            <!-- recompile everything for target VM except the module-info.java -->
+                            <configuration>
+                                <excludes>
+                                    <exclude>module-info.java</exclude>
+                                </excludes>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
+
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M3</version>
