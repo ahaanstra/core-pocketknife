@@ -16,9 +16,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <com.fasterxml.jackson.artifacts.version>2.9.8</com.fasterxml.jackson.artifacts.version>
         <junit.jupiter.version>5.5.0-M1</junit.jupiter.version>
-        <maven.compiler.source>12</maven.compiler.source>
-        <maven.compiler.target>12</maven.compiler.target>
         <maven.min-version>3.3.9</maven.min-version>
+        <!-- Build library with compatibility for java 1.8-12 (Source cannot use >1.8 language features) -->
+        <project.target.jvm.version>1.8</project.target.jvm.version>
+        <project.target.jvm.source.exclude>module-info.java</project.target.jvm.source.exclude>  <!-- 5<=${project.target.jvm.version}<9 only -->
+        <!-- Build library with compatibility for java 12 -->
+        <!--<project.target.jvm.version>12</project.target.jvm.version>
+        <project.target.jvm.source.exclude>exclude-nothing</project.target.jvm.source.exclude>-->  <!-- ${project.target.jvm.version}>=9 only -->
     </properties>
 
     <prerequisites>
@@ -135,6 +139,13 @@
                     <destDir>docs</destDir>
                     <verbose>true</verbose>
                     <failOnError>false</failOnError>
+                    <!-- Tell the javadoc plugin that we should generate ${project.target.jvm.version} javadoc and ignore the module-info.java source file. -->
+                    <jdkToolchain>
+                        <version>${project.target.jvm.version}</version>
+                    </jdkToolchain>
+                    <sourceFileExcludes>
+                        <sourceFileExclude>${project.target.jvm.source.exclude}</sourceFileExclude>
+                    </sourceFileExcludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -145,10 +156,76 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-toolchains-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>toolchain</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <toolchains>
+                        <jdk>
+                            <version>1.8</version>
+                            <vendor>oracle</vendor>
+                        </jdk>
+                        <jdk>
+                            <version>12</version>
+                            <vendor>oracle</vendor>
+                        </jdk>
+                    </toolchains>
+                </configuration>
+            </plugin>
         </plugins>
 
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <!-- Needed by the ReflectionPojoTester which uses Parameter.getName() -->
+                        <parameters>true</parameters>
+                        <testCompilerArgument>-parameters</testCompilerArgument>
+                        <!-- For this library to be compatible with Java ${project.target.jvm.version} -->
+                        <!-- see https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
+                        <!-- https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html -->
+                        <jdkToolchain>
+                            <version>${project.target.jvm.version}</version>
+                        </jdkToolchain>
+                        <source>${project.target.jvm.version}</source>
+                        <target>${project.target.jvm.version}</target>
+                    </configuration>
+                    <!-- Two-phase compile for compatibility with Java version ${project.target.jvm.version} -->
+                    <executions>
+                        <execution>
+                            <id>default-compile</id>
+                            <configuration>
+                                <!-- Compile everything to ensure module-info contains right entries -->
+                                <jdkToolchain>
+                                    <version>12</version>
+                                </jdkToolchain>
+                                <release>12</release>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>base-compile</id>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                            <!-- Recompile everything for target VM except the module-info.java -->
+                            <configuration>
+                                <excludes>
+                                    <exclude>${project.target.jvm.source.exclude}</exclude>
+                                </excludes>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <!-- Execute with maven goal: dependency:copy-dependencies@copy-dependencies -->
                     <artifactId>maven-dependency-plugin</artifactId>
@@ -170,7 +247,7 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <!-- execute with maven goals: enforcer:enforce -->
+                    <!-- Execute with maven goals: enforcer:enforce -->
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>3.0.0-M2</version>
                     <executions>
@@ -199,41 +276,6 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
-                    <configuration>
-                        <!-- Needed by the ReflectionPojoTester which uses Parameter.getName() -->
-                        <parameters>true</parameters>
-                        <testCompilerArgument>-parameters</testCompilerArgument>
-                        <!-- For this library to be compatible with Java 1.8 -->
-                        <!-- JAVA_HOME needs to point to jdk>12, otherwise a jdkToolchain configuration is necessary here or maven-toolchains-plugin must be used -->
-                        <release>8</release>
-                    </configuration>
-                    <!-- Two-phase compile for compatibility with Java 1.8 -->
-                    <executions>
-                        <execution>
-                            <id>default-compile</id>
-                            <configuration>
-                                <!-- compile everything to ensure module-info contains right entries -->
-                                <release>12</release>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>base-compile</id>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                            <!-- recompile everything for target VM except the module-info.java -->
-                            <configuration>
-                                <excludes>
-                                    <exclude>module-info.java</exclude>
-                                </excludes>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M3</version>
