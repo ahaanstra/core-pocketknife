@@ -18,11 +18,11 @@
         <junit.jupiter.version>5.5.0-M1</junit.jupiter.version>
         <maven.min-version>3.3.9</maven.min-version>
         <!-- Build library with compatibility for java 1.8-12 (Source cannot use >1.8 language features) -->
-        <project.target.jvm.version>1.8</project.target.jvm.version>
-        <project.target.jvm.source.exclude>module-info.java</project.target.jvm.source.exclude>  <!-- 5<=${project.target.jvm.version}<9 only -->
+        <!--<project.target.jvm.version>1.8</project.target.jvm.version>
+        <project.target.jvm.source.exclude>module-info.java</project.target.jvm.source.exclude>-->  <!-- 5<=${project.target.jvm.version}<9 only -->
         <!-- Build library with compatibility for java 12 -->
-        <!--<project.target.jvm.version>12</project.target.jvm.version>
-        <project.target.jvm.source.exclude>exclude-nothing</project.target.jvm.source.exclude>-->  <!-- ${project.target.jvm.version}>=9 only -->
+        <project.target.jvm.version>12</project.target.jvm.version>
+        <project.target.jvm.source.exclude>exclude-nothing</project.target.jvm.source.exclude>  <!-- ${project.target.jvm.version}>=9 only -->
     </properties>
 
     <prerequisites>

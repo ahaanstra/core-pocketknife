@@ -62,8 +62,11 @@ public class InlineMockerMethodConverter implements ExactToMatchingMethodConvert
 				instance.hashCode();
 				instance.getClass();
 				instance.equals(instance);
-				instance.notStubbed();
-				instance.stubbedMethod(12);
+				try {
+					instance.notStubbed();
+					instance.stubbedMethod(12);
+				} catch (Exception e) {
+				}
 			}
 			MethodCall<Method> methodCallWithMatchingArguments = methodRecorder
 					.getMethodCall(methodCall.getMethod().invoke(methodRecorder.getProxy(), methodCall.getArgs()));

@@ -26,7 +26,7 @@ public class InlineMockerIntegrationTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws Exception {
 
 		// Original
 		Assertions.assertEquals(DRIVE_RETURN_VALUE, implementation.stubbedMethod(INT_TEST_ARGUMENT));
@@ -62,7 +62,7 @@ public class InlineMockerIntegrationTest {
 	}
 
 	@Test
-	public void testnew() {
+	public void testnew() throws Exception {
 
 		// Original
 		Assertions.assertEquals(DRIVE_RETURN_VALUE, implementation.stubbedMethod(INT_TEST_ARGUMENT));
@@ -98,7 +98,7 @@ public class InlineMockerIntegrationTest {
 	}
 
 	@Test
-	public void test2() {
+	public void test2() throws Exception {
 		// Create a mock, for now all methods return null
 		InlineMocker mocker = InlineMockers.get(CallType.DEFAULT);
 		// Original

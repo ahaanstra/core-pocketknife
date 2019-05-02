@@ -4,9 +4,11 @@ import java.util.List;
 
 public class AlternativeStubber<U> {
 	private final List<Object> returnValues;
+	private final StubType stubType;
 
-	AlternativeStubber(List<Object> returnValues) {
+	AlternativeStubber(StubType stubType, List<Object> returnValues) {
 		super();
+		this.stubType = stubType;
 		this.returnValues = returnValues;
 	}
 
@@ -21,5 +23,7 @@ public class AlternativeStubber<U> {
 	List<Object> getReturnValues() {
 		return this.returnValues;
 	}
+
+	StubType getStubType() { return this.stubType; }
 
 }

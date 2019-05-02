@@ -7,8 +7,8 @@ import java.util.Optional;
 import com.semantica.pocketknife.mock.dto.QualifiedMethodCall;
 
 public interface InterceptionsStore {
-	public void addInterceptions(QualifiedMethodCall<Method> qualifiedMethodCall, List<Object> returnValues);
+	public void addInterceptions(QualifiedMethodCall<Method> qualifiedMethodCall, StubType stubType, List<Object> returnValues);
 
 	public Optional<Object> matchExactMethodCallToStoredMatchingMethodCalls(
-			QualifiedMethodCall<Method> qualifiedMethodCall);
+			QualifiedMethodCall<Method> qualifiedMethodCall) throws Throwable;
 }
