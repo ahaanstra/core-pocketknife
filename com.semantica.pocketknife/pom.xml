@@ -304,4 +304,28 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>dev-azure-com-semantica-nl-sem-maven</id>
+            <url>https://pkgs.dev.azure.com/semantica-nl/_packaging/sem-maven/maven/v1</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>dev-azure-com-semantica-nl-sem-maven</id>
+            <url>https://pkgs.dev.azure.com/semantica-nl/_packaging/sem-maven/maven/v1</url>
+        </repository>
+        <snapshotRepository>
+            <id>dev-azure-com-semantica-nl-sem-maven</id>
+            <url>https://pkgs.dev.azure.com/semantica-nl/_packaging/sem-maven/maven/v1</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
