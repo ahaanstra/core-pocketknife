@@ -5,23 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.semantica</groupId>
-    <artifactId>unit-testing-pocketknife</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <artifactId>core-unit-testing-pocketknife</artifactId>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>unit-testing-pocketknife</name>
+    <name>core-unit-testing-pocketknife</name>
     <url>https://github.com/SemanticaSoftware/unit-testing-pocketknife</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <com.fasterxml.jackson.artifacts.version>2.9.8</com.fasterxml.jackson.artifacts.version>
-        <junit.jupiter.version>5.5.0-M1</junit.jupiter.version>
+        <com.fasterxml.jackson.artifacts.version>2.10.0.pr3</com.fasterxml.jackson.artifacts.version>
+        <junit.jupiter.version>5.4.2</junit.jupiter.version> <!-- Beware junit-platform-maven-plugin v1.0.0-M5 requires version <= 5.5.0-M1 -->
         <maven.min-version>3.3.9</maven.min-version>
-        <!-- Build library with compatibility for java 1.8-12 (Source cannot use >1.8 language features) -->
+        <!-- Build library with compatibility for java 1.8-13 (Source cannot use >1.8 language features) -->
         <!--<project.target.jvm.version>1.8</project.target.jvm.version>
         <project.target.jvm.source.exclude>module-info.java</project.target.jvm.source.exclude>-->  <!-- 5<=${project.target.jvm.version}<9 only -->
-        <!-- Build library with compatibility for java 12 -->
-        <project.target.jvm.version>12</project.target.jvm.version>
+        <!-- Build library with compatibility for java 13 -->
+        <project.target.jvm.version>13</project.target.jvm.version>
         <project.target.jvm.source.exclude>exclude-nothing</project.target.jvm.source.exclude>  <!-- ${project.target.jvm.version}>=9 only -->
     </properties>
 
@@ -55,23 +55,23 @@
         <dependency>
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
-            <version>3.0.1</version>
+            <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.9.12</version>
+            <version>1.10.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.opentest4j</groupId>
             <artifactId>opentest4j</artifactId>
-            <version>1.1.1</version>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
-            <version>2.1</version>
+            <version>2.2-rc1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -89,13 +89,13 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j18-impl</artifactId>
-            <version>2.11.2</version>
+            <version>2.12.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.11.2</version>
+            <version>2.12.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -159,7 +159,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-toolchains-plugin</artifactId>
-                <version>1.1</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -174,7 +174,7 @@
                             <vendor>oracle</vendor>
                         </jdk>
                         <jdk>
-                            <version>12</version>
+                            <version>13</version>
                             <vendor>oracle</vendor>
                         </jdk>
                     </toolchains>
@@ -207,9 +207,9 @@
                             <configuration>
                                 <!-- Compile everything to ensure module-info contains right entries -->
                                 <jdkToolchain>
-                                    <version>12</version>
+                                    <version>13</version>
                                 </jdkToolchain>
-                                <release>12</release>
+                                <release>13</release>
                             </configuration>
                         </execution>
                         <execution>
