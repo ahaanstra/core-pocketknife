@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.semantica</groupId>
@@ -17,11 +17,10 @@
         <com.fasterxml.jackson.artifacts.version>2.10.0.pr3</com.fasterxml.jackson.artifacts.version>
         <junit.jupiter.version>5.4.2</junit.jupiter.version> <!-- Beware junit-platform-maven-plugin v1.0.0-M5 requires version <= 5.5.0-M1 -->
         <maven.min-version>3.3.9</maven.min-version>
-        <!-- Build library with compatibility for java 1.8-13 (Source cannot use >1.8 language features) -->
-        <!--<project.target.jvm.version>1.8</project.target.jvm.version>
-        <project.target.jvm.source.exclude>module-info.java</project.target.jvm.source.exclude>-->  <!-- 5<=${project.target.jvm.version}<9 only -->
-        <!-- Build library with compatibility for java 13 -->
-        <project.target.jvm.version>13</project.target.jvm.version>
+        <!-- Build library with compatibility for java 1.8-14 (Source cannot use >1.8 language features) -->
+        <!--<project.target.jvm.version>1.8</project.target.jvm.version> <project.target.jvm.source.exclude>module-info.java</project.target.jvm.source.exclude> -->  <!-- 5<=${project.target.jvm.version}<9 only -->
+        <!-- Build library with compatibility for java 14 -->
+        <project.target.jvm.version>14</project.target.jvm.version>
         <project.target.jvm.source.exclude>exclude-nothing</project.target.jvm.source.exclude>  <!-- ${project.target.jvm.version}>=9 only -->
     </properties>
 
@@ -156,34 +155,34 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-toolchains-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>toolchain</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <toolchains>
-                        <jdk>
-                            <version>1.8</version>
-                            <vendor>oracle</vendor>
-                        </jdk>
-                        <jdk>
-                            <version>13</version>
-                            <vendor>oracle</vendor>
-                        </jdk>
-                    </toolchains>
-                </configuration>
-            </plugin>
         </plugins>
 
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-toolchains-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>toolchain</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <toolchains>
+                            <jdk>
+                                <version>1.8</version>
+                                <vendor>oracle</vendor>
+                            </jdk>
+                            <jdk>
+                                <version>14</version>
+                                <vendor>openjdk</vendor>
+                            </jdk>
+                        </toolchains>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.0</version>
@@ -207,9 +206,9 @@
                             <configuration>
                                 <!-- Compile everything to ensure module-info contains right entries -->
                                 <jdkToolchain>
-                                    <version>13</version>
+                                    <version>14</version>
                                 </jdkToolchain>
-                                <release>13</release>
+                                <release>14</release>
                             </configuration>
                         </execution>
                         <execution>

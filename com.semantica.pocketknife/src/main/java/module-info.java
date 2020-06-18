@@ -22,4 +22,11 @@ module com.semantica.pocketknife {
 
     opens com.semantica.pocketknife.methodrecorder.dynamicproxies to net.bytebuddy;
     opens com.semantica.pocketknife to com.fasterxml.jackson.databind;
+    
+    //required by Eclipse only to run tests from IDE
+    
+    opens com.semantica.pocketknife.calls to org.apache.commons.lang3;
+    opens com.semantica.pocketknife.pojo.example to org.apache.commons.lang3;
+    opens com.semantica.pocketknife.pojo to org.apache.commons.lang3;
+    requires jdk.unsupported;
 }
