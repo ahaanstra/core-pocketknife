@@ -13,7 +13,7 @@ public interface Calls<T> {
 	/**
 	 * Register a method call. The method name is inferred from the stack trace.
 	 * <b>This method is only supported when T is declared {@link String}</b>, i.e.
-	 * when {@code String.class} is used as the key class in the constructor for
+	 * when {@code String.class} is used as the methodClass in the constructor for
 	 * this Calls instance.
 	 *
 	 * This method should be invoked from a mock method to register the mock method
@@ -24,7 +24,7 @@ public interface Calls<T> {
 	 * <pre>
 	 * <code>
 	 * public class MyMock extends MockedClass implements Mock {
-	 *    {@code Calls<String> defaultCalls} = CallsFactory.getDefaultCallsUsingStrings();
+	 *    {@code Calls<String> calls} = CallsFactory.getDefaultCallsUsingStrings();
 	 *    ...
 	 *    {@literal @}Override
 	 *    public int someMockedMethod(Object arg1, Object arg2){
@@ -43,14 +43,15 @@ public interface Calls<T> {
 
 	/**
 	 * Register a method call explicitely. Works for instances initialized to both
-	 * {@code String.class} and {@code java.lang.reflect.Method.class} as keyClass.
+	 * {@code String.class} or {@code java.lang.reflect.Method.class} as
+	 * methodClass.
 	 *
 	 * Typical use:
 	 *
 	 * <pre>
 	 * <code>
 	 * public class MyMock extends MockedClass implements Mock {
-	 *    {@code Calls<Method> defaultCalls} = CallsFactory.getDefaultCalls();
+	 *    {@code Calls<Method> calls} = CallsFactory.getDefaultCalls();
 	 *    ...
 	 *    {@literal @}Override
 	 *    public int someMockedMethod(Object arg1, Object arg2){
@@ -72,7 +73,8 @@ public interface Calls<T> {
 	/**
 	 * Convenience method that won't be necessary for most use cases. Registers a
 	 * method call explicitely. Works for instances initialized to both
-	 * {@code String.class} and {@code java.lang.reflect.Method.class} as keyClass.
+	 * {@code String.class} or {@code java.lang.reflect.Method.class} as
+	 * methodClass.
 	 *
 	 * @param methodCall The {@link MethodCall} identifier for the method call.
 	 */
@@ -80,7 +82,7 @@ public interface Calls<T> {
 
 	/**
 	 * Verifies whether there were no more registered method invocations on the mock
-	 * than the one that have been verified and removed.
+	 * than the ones that have been verified and removed.
 	 *
 	 * @return True if there were no more method invocations, false otherwise.
 	 */
@@ -103,9 +105,9 @@ public interface Calls<T> {
 
 	/**
 	 * Removes a registered method call from the method calls store without any
-	 * verification. This instance will return to the same state as before given
-	 * call was registered. This method should only be used internally in this
-	 * library.
+	 * verification. In the absence of other changes, invocation causes this
+	 * instance to return to the same state as before given call was registered.
+	 * This method should only be used internally in this library.
 	 *
 	 * @param methodCall The method call to remove
 	 */

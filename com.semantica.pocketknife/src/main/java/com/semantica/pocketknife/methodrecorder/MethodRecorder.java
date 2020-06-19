@@ -32,7 +32,7 @@ import net.bytebuddy.matcher.ElementMatchers;
  * A MethodRecorder can be used to record method invocations. It is initialized
  * with a class on which method calls are to be recorded. The
  * {@link MethodRecorder} object creates a proxy instance of this class upon
- * construction. The methods calls to be recorded should be invoked on this
+ * construction. The method calls to be recorded should be invoked on this
  * proxy (obtained by {@link #getProxy()}. After invoking a method on its proxy,
  * the corresponding method name, a {@link java.lang.reflect.Method} or a
  * {@link MethodCall} can be retrieved via one of its getMethod* methods.

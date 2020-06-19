@@ -14,8 +14,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <com.fasterxml.jackson.artifacts.version>2.10.0.pr3</com.fasterxml.jackson.artifacts.version>
+        <com.fasterxml.jackson.artifacts.version>2.11.0</com.fasterxml.jackson.artifacts.version>
         <junit.jupiter.version>5.4.2</junit.jupiter.version> <!-- Beware junit-platform-maven-plugin v1.0.0-M5 requires version <= 5.5.0-M1 -->
+        <apache.log4j.version>2.13.3</apache.log4j.version>
         <maven.min-version>3.3.9</maven.min-version>
         <!-- Build library with compatibility for java 1.8-14 (Source cannot use >1.8 language features) -->
         <!--<project.target.jvm.version>1.8</project.target.jvm.version> <project.target.jvm.source.exclude>module-info.java</project.target.jvm.source.exclude> -->  <!-- 5<=${project.target.jvm.version}<9 only -->
@@ -38,7 +39,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.8.0-beta4</version>
+            <version>2.0.0-alpha1</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -59,7 +60,7 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.10.1</version>
+            <version>1.10.12</version>
         </dependency>
 
         <dependency>
@@ -70,12 +71,12 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
-            <version>2.2-rc1</version>
+            <version>2.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
+            <version>3.10</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -93,19 +94,19 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j18-impl</artifactId>
-            <version>2.12.1</version>
+            <version>${apache.log4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.12.1</version>
+            <version>${apache.log4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.27.0</version>
+            <version>3.3.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -137,7 +138,7 @@
                 <!-- execute with maven goals: clean package javadoc:jar -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <reportOutputDirectory>${basedir}</reportOutputDirectory>
                     <destDir>docs</destDir>
@@ -190,7 +191,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>3.8.1</version>
                     <configuration>
                         <!-- Needed by the ReflectionPojoTester which uses Parameter.getName() -->
                         <parameters>true</parameters>
@@ -233,7 +234,7 @@
                 <plugin>
                     <!-- Execute with maven goal: dependency:copy-dependencies@copy-dependencies -->
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.1.2</version>
                     <executions>
                         <execution>
                             <id>copy-dependencies</id>
@@ -286,7 +287,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
@@ -299,11 +300,11 @@
                 <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7.1</version>
+                    <version>3.8.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -16,7 +16,7 @@ import com.semantica.pocketknife.util.TestUtils;
 
 /**
  * This class contains all common behaviour and data of the
- * {@link CallsRegistry} and {@linkplain StrictCallsRegistry} classes.
+ * {@link CallsRegistry} and {@link StrictCallsRegistry} classes.
  *
  * @author A. Haanstra
  *
@@ -37,11 +37,12 @@ abstract class AbstractCallsRegistry<T> implements Calls<T> {
 	 */
 	protected AbstractCallsRegistry(Class<T> methodClass) {
 		super();
-		if (methodClass != String.class && methodClass != Method.class) {
+		if (methodClass == String.class || methodClass == Method.class) {
+			this.keyClass = methodClass;
+		} else {
 			throw new IllegalArgumentException(
 					"Unsupported method class used. Use either String.class or Method.class.");
 		}
-		this.keyClass = methodClass;
 	}
 
 	public void registerCall(Object... args) {
