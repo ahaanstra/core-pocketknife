@@ -88,7 +88,7 @@ public interface Calls<T> {
 
 	/**
 	 * Verifies whether there were no more registered method invocations on the mock
-	 * than the one that have been verified and removed.
+	 * than the ones that have been verified and removed.
 	 *
 	 * @param printStackTrace If true, a stack trace will be printed for the method
 	 *                        invocations that have not been verified and removed.

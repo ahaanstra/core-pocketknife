@@ -1,5 +1,6 @@
 package com.semantica.pocketknife;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import javax.inject.Singleton;
  * It serves to provide a simple one-call check to see whether all mock
  * invocations have been verified on all registered mocks. Typically, all mocks
  * register themselves, the unit test is executed, mock invocations are verified
- * and at the end it is verified that no unexepcted call were made by calling
+ * and at the end it is verified that no unexpected calls were made by calling
  * {@link #verifyNoMoreMethodInvocationsAnywhere()
  * verifyNoMoreMethodInvocationsAnywhere}.
  *
@@ -27,9 +28,8 @@ public class MocksRegistry {
 	private Set<Provider<? extends Mock>> mockProviders;
 
 	public MocksRegistry() {
-		super();
-		registeredMocks = new HashSet<>();
-		mockProviders = new HashSet<>();
+		this.registeredMocks = new HashSet<>();
+		this.mockProviders = new HashSet<>();
 	}
 
 	/**
@@ -37,9 +37,9 @@ public class MocksRegistry {
 	 *
 	 * @param mocks Set of mocks that need to be registered.
 	 */
-	public MocksRegistry(Set<Mock> mocks) {
-		super();
-		this.registeredMocks = mocks;
+	public MocksRegistry(Collection<? extends Mock> mocks) {
+		this.registeredMocks = new HashSet<>(mocks);
+		this.mockProviders = new HashSet<>();
 	}
 
 	/**
@@ -71,16 +71,18 @@ public class MocksRegistry {
 	 *         removed, {@code false} otherwise.
 	 */
 	public boolean verifyNoMoreMethodInvocationsAnywhere() {
-		boolean noMoreMethodInvocationsAnywhere = true;
+		registeredMocks.addAll(getAllMocks(mockProviders));
+		return verifyNoMoreMethodInvocations(registeredMocks.toArray(new Mock[0]));
+	}
+
+	private static Set<Mock> getAllMocks(Set<Provider<? extends Mock>> mockProviders) {
+		Set<Mock> providedMocks = new HashSet<>();
 		for (Provider<? extends Mock> mockProvider : mockProviders) {
 			Mock mock = mockProvider.get();
-			registeredMocks.add(mock);
+			providedMocks.add(mock);
 		}
 		mockProviders.clear();
-		for (Mock mock : registeredMocks) {
-			noMoreMethodInvocationsAnywhere &= mock.getCalls().verifyNoMoreMethodInvocations(false);
-		}
-		return noMoreMethodInvocationsAnywhere;
+		return providedMocks;
 	}
 
 	/**
@@ -106,15 +108,11 @@ public class MocksRegistry {
 	 * @param mock The mock that is deregistered.
 	 */
 	public void deregisterMock(Mock mock) {
-		for (Provider<? extends Mock> mockProvider : mockProviders) {
-			registeredMocks.add(mockProvider.get());
-		}
-		mockProviders.clear();
-		boolean success = registeredMocks.remove(mock);
-		if (!success) {
-			throw new IllegalStateException("Mock of class " + mock.getClass().getSimpleName() + " and with hash "
-					+ mock.hashCode()
-					+ " tried to deregister itself, but registration could not be found. Unable to deregister.");
+		registeredMocks.addAll(getAllMocks(mockProviders));
+		if (!registeredMocks.remove(mock)) {
+			throw new IllegalStateException(String.format(
+					"Mock of class %s and with hash %d tried to deregister itself, but registration could not be found. Unable to deregister.",
+					mock.getClass().getSimpleName(), mock.hashCode()));
 		}
 	}
 
