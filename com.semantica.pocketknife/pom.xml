@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <com.fasterxml.jackson.artifacts.version>2.11.0</com.fasterxml.jackson.artifacts.version>
+        <com.fasterxml.jackson.artifacts.version>2.12.7.1</com.fasterxml.jackson.artifacts.version>
         <junit.jupiter.version>5.4.2</junit.jupiter.version> <!-- Beware junit-platform-maven-plugin v1.0.0-M5 requires version <= 5.5.0-M1 -->
         <apache.log4j.version>2.13.3</apache.log4j.version>
         <maven.min-version>3.3.9</maven.min-version>
